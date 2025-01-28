@@ -1,33 +1,38 @@
 
-let secondsPassed;
-let oldTimeStamp;
-let fps;
+class GameWorld{
 
-function gameLoop(timeStamp) {
+    constructor(canvasId){
+        this.canvas = document.getElementById(canvasId);
+        this.context = this.canvas.getContext('2d');
+        this.gameObjects = [];
+        
+        window.requestAnimationFrame(() => this.gameLoop());
+    }
 
-    // Calculate the number of seconds passed since the last frame
-    secondsPassed = (timeStamp - oldTimeStamp) / 1000;
-    oldTimeStamp = timeStamp;
+    update(){
+        // Update the game world and the objects in it.
 
-    // Calculate fps
-    fps = Math.round(1 / secondsPassed);
+    }
 
-    // Draw number to the screen
-    context.fillStyle = 'white';
-    context.fillRect(0, 0, 200, 100);
-    context.font = '25px Arial';
-    context.fillStyle = 'black';
-    context.fillText("FPS: " + fps, 10, 30);
+    draw(){
+        // Clear and redraw the canvas.
+    }
 
-    // Perform the drawing operation
-    draw();
+    waitForNextFrame(){
+        window.requestAnimationFrame(() => this.gameLoop());
+    }
 
-    // The loop function has reached it's end. Keep requesting new frames
-    window.requestAnimationFrame(gameLoop);
+
+    gameLoop(){
+        this.update();
+
+        this.draw();
+
+        this.waitForNextFrame();
+    }
 }
 
-window.onload = function() {
-    const canvas = document.getElementById('gameCanvas');
-    const context = canvas.getContext('2d');
-
-};
+window.onload = () => {
+    // After page is loaded, initialize the game.
+    let gameWorld = new GameWorld('canvas');
+}
